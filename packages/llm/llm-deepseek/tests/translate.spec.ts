@@ -103,8 +103,8 @@ describe('translate: tool calls', () => {
     const chunks = await collect(translate(feed(
       firstChunk,
       { choices: [{ delta: { tool_calls: [{ index: 0, id: 'call_00_x', type: 'function', function: { name: 'get_weather', arguments: '' } }] } }] },
-      { choices: [{ delta: { tool_calls: [{ index: 0, function: { arguments: '{"city"' } }] } }] },
-      { choices: [{ delta: { tool_calls: [{ index: 0, function: { arguments: ': "Paris"}' } }] } }] },
+      { choices: [{ delta: { tool_calls: [{ index: 0, id: '', function: { arguments: '{"city"' } }] } }] },
+      { choices: [{ delta: { tool_calls: [{ index: 0, id: '', function: { arguments: ': "Paris"}' } }] } }] },
       { choices: [{ delta: { content: '' }, finish_reason: 'tool_calls' }], usage: { prompt_tokens: 28, completion_tokens: 6 } },
       DONE,
     )))
