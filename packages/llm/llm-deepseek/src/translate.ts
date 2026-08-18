@@ -156,7 +156,9 @@ export async function* translate(payloads: AsyncIterable<string>): AsyncGenerato
           toolBlocks.set(call.index, block)
           yield { type: 'block-start', index: block.index, blockType: 'tool-call' }
         }
-        if (call.id !== undefined) block.callId = call.id
+        // OpenAI-compatible gateways may repeat later argument deltas with an empty id;
+        // only a non-empty wire value may establish or replace the call identity.
+        if (call.id !== undefined && call.id.length > 0) block.callId = call.id
         if (call.function?.name !== undefined) block.name = call.function.name
         const fragment = call.function?.arguments ?? ''
         block.text += fragment
